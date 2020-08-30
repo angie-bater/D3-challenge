@@ -1,5 +1,5 @@
 // @TODO: YOUR CODE HERE!
-// set the dimensions and margins of the graph
+// Set the dimensions and margins of the graph
 var svgWidth = 960;
 var svgHeight = 500;
 
@@ -12,17 +12,18 @@ var margin = {
 
 var width = svgWidth - margin.left - margin.right;
 var height = svgHeight - margin.top - margin.bottom;
+//Import the data
 d3.csv("../data.csv").then(function(csvData){
     console.log(csvData);
 
-    //Parse data as numbers
+    //For each and grab the data we want
     csvData.forEach(function(csvData){
         csvData.smokes = +csvData.smokes;
         csvData.age = +csvData.age;
     });
 
     
-    // append the svg object to the body of the page
+    // Append svg to scatter
     var svg = d3.select("#scatter")
         .append("svg")
         .attr("width", svgWidth)
@@ -31,7 +32,7 @@ d3.csv("../data.csv").then(function(csvData){
         .attr("transform",
             `translate(${margin.left}, ${margin.top})`);
 
-    //Create scale function
+    // Make the scales for the graph
     var xAxisScale = d3.scaleLinear()
         .domain([d3.min(csvData, d=> d.smokes)-1, d3.max(csvData, d=> d.smokes)+1])
         .range([0, width]);
@@ -51,7 +52,7 @@ d3.csv("../data.csv").then(function(csvData){
     chartGroup.append("g")
         .call(yAxis);
 
-    // Add circles
+    // Make and add the circles
     var circle = chartGroup.selectAll("circle")
         .data(csvData)
         .enter()
@@ -62,7 +63,7 @@ d3.csv("../data.csv").then(function(csvData){
         .attr("r", 10)
         .style("fill", "rgba(0,0,0,.3)")
 
-    //Add the SVG Text Element to the svgContainer
+    //Add the text to the circles
     circle.append("text")
     .data(csvData)
     .enter()
