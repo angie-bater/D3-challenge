@@ -4,7 +4,7 @@ d3.csv("../assets/data/data.csv").then(function(csvData) {
     console.log(csvData);
 
     //Parse data as numbers
-    csvData.forEach(function(data){
+    csvData.forEach(function(csvData){
         data.smokes = +data.smokes;
         data.age = +data.age;
     });
@@ -34,10 +34,10 @@ d3.csv("../assets/data/data.csv").then(function(csvData) {
 
     //Create scale function
     var xAxisScale = d3.scaleLinear()
-        .domain([d3.min(data, d=> d.smokes)-1, d3.max(data, d=> d.smokes)+1])
+        .domain([d3.min(csvData, d=> d.smokes)-1, d3.max(csvData, d=> d.smokes)+1])
         .range([0, width]);
     var yAxisScale = d3.scaleLinear()
-        .domain([d3.min(data, d=> d.age)-1, d3.max(data, d=> d.age)+1])
+        .domain([d3.min(csvData, d=> d.age)-1, d3.max(csvData, d=> d.age)+1])
         .range([0, height]);
     
     //Create axis functions
@@ -54,7 +54,7 @@ d3.csv("../assets/data/data.csv").then(function(csvData) {
 
     // Add dots
     var dots = chartGroup.selectAll("circle")
-        .data(data)
+        .data(csvData)
         .enter();
         dots
         .append("circle")
@@ -62,16 +62,16 @@ d3.csv("../assets/data/data.csv").then(function(csvData) {
         .attr("cy", function (d) { return y(d.age); })
         .attr("r", 10)
         .style("fill", "rgba(0,0,0,.3)")
-        .on("mouseover", function(data) {
+        .on("mouseover", function(csvData) {
             toolTip.show(data, this)})
-        .on("mouseout", function(data) {
+        .on("mouseout", function(csvData) {
             toolTip.hide(data)});
 
         
     
     //Add the SVG Text Element to the svgContainer
     dots.append("text")
-    .data(data)
+    .data(csvData)
     .enter()
     .append("text");
     
