@@ -1,6 +1,18 @@
 // @TODO: YOUR CODE HERE!
-//load data from data.csv (self-execulting anymous function)
-d3.csv("./data.csv").then(function(csvData){
+// set the dimensions and margins of the graph
+var svgWidth = 960;
+var svgHeight = 500;
+
+var margin = { 
+    top: 20, 
+    right: 40, 
+    bottom: 60, 
+    left: 100
+};
+
+var width = svgWidth - margin.left - margin.right;
+var height = svgHeight - margin.top - margin.bottom;
+d3.csv("../data.csv").then(function(csvData){
     console.log(csvData);
 
     //Parse data as numbers
@@ -8,20 +20,7 @@ d3.csv("./data.csv").then(function(csvData){
         data.smokes = +data.smokes;
         data.age = +data.age;
     });
-    
-    // set the dimensions and margins of the graph
-    var svgWidth = 960;
-    var svgHeight = 500;
 
-    var margin = { 
-        top: 20, 
-        right: 40, 
-        bottom: 60, 
-        left: 100
-    };
-    
-    var width = svgWidth - margin.left - margin.right;
-    var height = svgHeight - margin.top - margin.bottom;
     
     // append the svg object to the body of the page
     var svg = d3.select("#scatter")
